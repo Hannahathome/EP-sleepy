@@ -26,7 +26,7 @@
 
 const int QUESTION_AMOUNT = 10;
 
-int main() {
+void setup {
   Question questions[QUESTION_AMOUNT] = {
     { "Question 1 file location" },
     { "Question 2 file location" },
@@ -49,14 +49,14 @@ int main() {
   buttons.ShowNextButtonAndWait();
 
   std::string answers[QUESTION_AMOUNT] = {};
-  for(int i = 0; i < QUESTION_AMOUNT; i++) {
+  for (int i = 0; i < QUESTION_AMOUNT; i++) {
     player.PlayQuestion(questions[i].audioFileLocation);
     answers[i] = buttons.GetUserAnswer();
   }
 
   auto saver = Saver();
   saver.Save(answers, QUESTION_AMOUNT);
-  
+
   player.PlayOutro();
   player.PlayStory();
   player.PlayEndText();

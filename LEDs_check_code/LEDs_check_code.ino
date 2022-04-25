@@ -41,7 +41,7 @@ void updateShiftRegister(byte storageByte) {
 
 void loop() {
   walkingLights ();                           // run the walkingLights void 1x 
-  blinkLights ();                             // run the blinkLights void 1x 
+  //blinkLights ();                             // run the blinkLights void 1x 
   //the loop repeats 
 }
 
