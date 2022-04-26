@@ -7,16 +7,16 @@
 */
 
 /*
-Functions you can call from this file: 
+  Functions you can call from this file:
 
-walkingLights ();    
-blinkLights (); 
-blinkButtonLights (); (dont blink the white buttons light) 
-lightsOn ();
-lightsOff ();
+  walkingLights ();
+  blinkLights ();
+  blinkButtonLights (); (dont blink the white buttons light)
+  lightsOn ();
+  lightsOff ();
+  blinkNextButton (); only blink white button
 
-
- */
+*/
 
 // function which sends the stored byte to the output pins by setting the latch pin LOW
 void updateShiftRegister(byte storageByte) {
@@ -53,6 +53,8 @@ void blinkLights () {
   updateShiftRegister(storageByte);           // send the 8 bit command to the shift register and set latch LOW
   delay(delayTime);                           // wait
 }
+
+
 void blinkButtonLights () {
   storageByte = 0b01111111;                   // command to turn on all lights except the first (white LED, QH)
   updateShiftRegister(storageByte);           // send the 8 bit command to the shift register and set latch LOW
@@ -61,6 +63,16 @@ void blinkButtonLights () {
   updateShiftRegister(storageByte);           // send the 8 bit command to the shift register and set latch LOW
   delay(delayTime);                           // wait
 }
+
+void blinkNextButton () {
+  storageByte = 0b10000001;                   // command to turn on all lights except the first (white LED, QH)
+  updateShiftRegister(storageByte);           // send the 8 bit command to the shift register and set latch LOW
+  delay(delayTime);                           // wait
+  storageByte = 0b00000000;                   // command to turn off all lights
+  updateShiftRegister(storageByte);           // send the 8 bit command to the shift register and set latch LOW
+  delay(delayTime);                           // wait
+}
+
 
 void lightsOn () {
   storageByte = 0b11111111;

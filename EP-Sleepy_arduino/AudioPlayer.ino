@@ -1,11 +1,11 @@
 /*
-Functions you can call from this file: 
+  Functions you can call from this file:
 
-void sendCommand(int8_t command, byte option1, byte option2) 
+  void sendCommand(int8_t command, byte option1, byte option2)
 
-Fill in the Command byte, and add options from the lower list. 
-If you do not need the additional options, add a '0'
- */
+  Fill in the Command byte, and add options from the lower list.
+  If you do not need the additional options, add a '0'
+*/
 
 ///*--------------------Command byte-----------------------*/
 //#define NEXT_SONG 0X01

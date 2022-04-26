@@ -84,6 +84,7 @@ int BUTTON_THREE = 25;  // GIOP 25 pin connected to button
 int BUTTON_FOUR = 33;   // GIOP 33 pin connected to button
 int BUTTON_FIVE = 32;   // GIOP 32 pin connected to button
 
+
 //LIGHTS IN BUTTONS--------------------------------------------------//
 #define NUM_LEDS     6
 
@@ -130,20 +131,32 @@ void setup () {
   pinMode(clockPin, OUTPUT);
   Serial.println("Lights setup");
 
-
-
+  /***************************************************/
   //THE ACTUAL LIKE PROGRAM THAT RUNS ONCE--------------------------------------------------//
-  walkingLights ();
-  walkingLights ();
-  walkingLights ();
+  Serial.println("Starting system");
+  //first lights
+  blinkLights ();
+  blinkLights ();
+  
+  //introduction text
   sendCommand(PLAY_W_INDEX, FOLDER_ONE, INTRO);
+  delay (17000); //waiting for the text to finish 
+  //checkButton();
+  buttonWait(BUTTON_START); //waiting for the button to be pressed 
+
+
+  
+  sendCommand(PLAY_W_INDEX, FOLDER_ONE, Q1);
+  delay (10000);
   walkingLights (); //anything after playig the sound will happen during the playing, beware of this
-  walkingLights ();
+
+
 }
 
+/***************************************************/
 
 void loop() {
-  
+
 }
 
 
