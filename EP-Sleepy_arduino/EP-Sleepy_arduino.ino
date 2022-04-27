@@ -65,6 +65,8 @@ unsigned char playmode = 1;
 #define OUTRO 0X14
 #define OUTRO_STORY 0X15
 
+char TheQuestions[] = {Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12};
+
 #define FOLDER_TWO 0X01
 #define STORY_1 0X01
 #define STORY_2 0X02
@@ -73,6 +75,8 @@ unsigned char playmode = 1;
 #define STORY_5 0X05
 /*********************************************************************/
 
+//QUESTIONS--------------------------------------------------//
+int QUESTION_AMOUNT = 12;
 
 //BUTTONS--------------------------------------------------//
 
@@ -137,19 +141,16 @@ void setup () {
   //first lights
   blinkLights ();
   blinkLights ();
-  
+
   //introduction text
   sendCommand(PLAY_W_INDEX, FOLDER_ONE, INTRO);
-  delay (17000); //waiting for the text to finish 
+  delay (17000); //waiting for the text to finish
   //checkButton();
-  buttonWait(BUTTON_START); //waiting for the button to be pressed 
+  buttonWait(BUTTON_START); //waiting for the button to be pressed
+  playQuestionOne ();
 
-
-  
-  sendCommand(PLAY_W_INDEX, FOLDER_ONE, Q1);
-  delay (10000);
   walkingLights (); //anything after playig the sound will happen during the playing, beware of this
-
+  Serial.println("end of the program"); 
 
 }
 

@@ -56,7 +56,7 @@ void blinkLights () {
 
 
 void blinkButtonLights () {
-  storageByte = 0b01111111;                   // command to turn on all lights except the first (white LED, QH)
+  storageByte = 0b01111110;                   // command to turn on all lights except the first (white LED, QH)
   updateShiftRegister(storageByte);           // send the 8 bit command to the shift register and set latch LOW
   delay(delayTime);                           // wait
   storageByte = 0b00000000;                   // command to turn off all lights
