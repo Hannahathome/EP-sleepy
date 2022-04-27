@@ -1,5 +1,4 @@
 /*
-
   Question questions[QUESTION_AMOUNT] = {
     { "Question 1 file location" },
     { "Question 2 file location" },

@@ -48,29 +48,29 @@ unsigned char playmode = 1;
 #define PLAY_W_VOL 0X22
 
 /*--------------------Specifications-----------------------*/
-#define FOLDER_ONE 0X00
-#define INTRO 0X01
-#define Q1 0X02
-#define Q2 0X03
-#define Q3 0X04
-#define Q4 0X05
-#define Q5 0X06
-#define Q6 0X07
-#define Q7 0X08
-#define Q8 0X09
-#define Q9 0X10
-#define Q10 0X11
-#define Q11 0X12
-#define Q12 0X13
-#define OUTRO 0X14
-#define OUTRO_STORY 0X15
+#define FOLDER_ONE 0
+#define INTRO 1
+#define Q1 2
+#define Q2 3
+#define Q3 4
+#define Q4 5
+#define Q5 6
+#define Q6 7
+#define Q7 8
+#define Q8 9
+#define Q9 10
+#define Q10 11
+#define Q11 12
+#define Q12 13
+#define OUTRO 14
+#define OUTRO_STORY 15
 
-#define FOLDER_TWO 0X01
-#define STORY_1 0X01
-#define STORY_2 0X02
-#define STORY_3 0X03
-#define STORY_4 0X04
-#define STORY_5 0X05
+#define FOLDER_TWO 2
+#define STORY_1 1
+#define STORY_2 2
+#define STORY_3 3
+#define STORY_4 4
+#define STORY_5 5
 /*********************************************************************/
 
 //QUESTIONS--------------------------------------------------//
@@ -105,7 +105,7 @@ void setup () {
   delay(500);
 
   //PLAY/PAUSE SETUP
-  attachInterrupt(BUTTON_START, playOrPause, RISING); //pin2 -> INT0, and the Touch Sensor is connected with pin2 of Arduino
+  attachInterrupt(BUTTON_START, playOrPause, RISING); // pin2 -> INT0, and the Touch Sensor is connected with pin2 of Arduino
 
   //CONNECT TO THE YX5300 Serial MP3 Player
   sendCommand(SELECT_DEVICE, 0, DEVICE_TF);           // select device command, empty space, device command

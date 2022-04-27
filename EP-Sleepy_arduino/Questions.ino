@@ -5,7 +5,6 @@ int answerFour = 0;
 int answerFive = 0;
 int replayQuestion = 0;
 
-
 int CurrentQuestion = 0;
 
 void playQuestion(uint8_t question) {
@@ -15,7 +14,7 @@ void playQuestion(uint8_t question) {
   delay (10000);
   Serial.println("Waiting for answer");
 
-   while (1) {
+  while (1) {
     int answerOne = digitalRead(BUTTON_ONE);
     int answerTwo = digitalRead(BUTTON_TWO);
     int answerThree = digitalRead(BUTTON_THREE);
@@ -24,17 +23,16 @@ void playQuestion(uint8_t question) {
     int replayQuestion = digitalRead(BUTTON_START);
     blinkButtonLights ();
     Serial.println("Waiting for answer");
-    
+
     if (replayQuestion == HIGH) {
       Serial.println("replay question");
       sendCommand(PLAY_W_INDEX, FOLDER_ONE, Q1); //replay the current question
-      
     }
+    
     if (answerOne == HIGH) {
       Serial.println("answer 1");
       answers[CurrentQuestion] = 1;
       CurrentQuestion++; //replay the current question
-      
       return;
     }
     if (answerTwo == HIGH) {

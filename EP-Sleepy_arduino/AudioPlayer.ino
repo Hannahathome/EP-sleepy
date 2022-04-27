@@ -60,7 +60,8 @@
 ///*********************************************************************/
 
 
-void sendCommand(int8_t command, byte option1, byte option2) {
+
+void sendCommand(uint8_t command, uint8_t option1, uint8_t option2) {
   delay(20);
   Serial.println("Command");          // As explained in the manual linked above each signal has their own 'code' they can be found in the manual. They do not need to be edited.
   Send_buf[0] = 0x7e;                 // Every command starts with this, lets call it the 'address'
