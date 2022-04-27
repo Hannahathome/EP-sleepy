@@ -1,13 +1,13 @@
 // LIBRARIES
-//#include <OOCSI.h>              // send data to oocsi (not yet implemented)
-//#include <EEPROM.h>             // saving data in the memory of ESP (not yet implemented)
-#include <MD_YX5300.h>            // MD_YX5300 MP3 Player 
+//#include <OOCSI.h>                // send data to oocsi (not yet implemented)
+//#include <EEPROM.h>               // saving data in the memory of ESP (not yet implemented)
+#include <MD_YX5300.h>              // MD_YX5300 MP3 Player 
 #include <SoftwareSerial.h>
 
 //AUDIO PLAYER--------------------------------------------------//
 //Defining the pins
-#define ESP_RX 16 // this is the RX2 pin 
-#define ESP_TX 17 // this is the TX2 pin 
+#define ESP_RX 16                   // this is the RX2 pin 
+#define ESP_TX 17                   // this is the TX2 pin 
 SoftwareSerial mySerial(ESP_RX, ESP_TX);
 
 //COMAND SENDING
@@ -19,7 +19,7 @@ unsigned char playmode = 1;
 #define PAUSE_SOUND 0
 
 //CONTROL BUTTON
-//int BUTTON_START = 34;              //Control button pin
+//int BUTTON_START = 34;             //Control button pin
 
 /*--------------------Command byte-----------------------*/
 #define NEXT_SONG 0X01
@@ -65,8 +65,6 @@ unsigned char playmode = 1;
 #define OUTRO 0X14
 #define OUTRO_STORY 0X15
 
-char TheQuestions[] = {Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12};
-
 #define FOLDER_TWO 0X01
 #define STORY_1 0X01
 #define STORY_2 0X02
@@ -77,9 +75,10 @@ char TheQuestions[] = {Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12};
 
 //QUESTIONS--------------------------------------------------//
 int QUESTION_AMOUNT = 12;
+char TheQuestions[] = {Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12};
+int answers[] = {0,0,0,0,0,0,0,0,0,0,0,0}; 
 
 //BUTTONS--------------------------------------------------//
-
 //define the buttons pins
 int BUTTON_START = 34;  // GI(O)P 34 pin connected to button (CAREFUL! INPUT ONLY pin, this pin does not give any OUTPUT, so do not use if for that)
 int BUTTON_ONE = 27;    // GIOP 27 pin connected to button
@@ -93,12 +92,10 @@ int BUTTON_FIVE = 32;   // GIOP 32 pin connected to button
 #define NUM_LEDS     6
 
 int delayTime = 500;  // duration to pause
-
 int latchPin = 15;    // the pin connected to the latch pin, RCLK (pin 12 of the shift register)setting the latch LOW will send the 8 bits in storage to the output pins
 int clockPin = 21;    // the pin connected to the clock pin, SRCLK (pin 11 of the shift register)
 int dataPin = 4;      // the pin connected to the serial data pin, SER (pin 14 of the shift register)
 byte storageByte;
-
 
 void setup () {
   //AUDIO PLAYER--------------------------------------------------//
@@ -113,7 +110,7 @@ void setup () {
   //CONNECT TO THE YX5300 Serial MP3 Player
   sendCommand(SELECT_DEVICE, 0, DEVICE_TF);           // select device command, empty space, device command
   delay(200);
-  playOrPause();                                      //void for the playing and pausing (starts on paused)
+  playOrPause();                                      // void for the playing and pausing (starts on paused)
 
   Serial.println("Audio setup");
 
@@ -147,8 +144,15 @@ void setup () {
   delay (17000); //waiting for the text to finish
   //checkButton();
   buttonWait(BUTTON_START); //waiting for the button to be pressed
-  playQuestionOne ();
+  
+  for (int i = 0; i < QUESTION_AMOUNT; i++) {
+    playQuestion(TheQuestions[i]);
+  }
 
+  for(int i = 0; i < 12; i++) {
+    Serial.println(String(answers[i]));
+  }
+  
   walkingLights (); //anything after playig the sound will happen during the playing, beware of this
   Serial.println("end of the program"); 
 
