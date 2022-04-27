@@ -50,6 +50,7 @@ void buttonWait(int buttonPin) {
   int buttonState = 0;
   blinkNextButton ();
   while (1) {
+    blinkNextButton ();
     buttonState = digitalRead(BUTTON_START);
     if (buttonState == HIGH) {
       return;

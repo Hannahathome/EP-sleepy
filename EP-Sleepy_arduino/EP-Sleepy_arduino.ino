@@ -135,7 +135,7 @@ void setup () {
   pinMode(clockPin, OUTPUT);
   Serial.println("Lights setup");
 
-  /***************************************************/
+/***************************************************/
   //THE ACTUAL LIKE PROGRAM THAT RUNS ONCE--------------------------------------------------//
   Serial.println("Starting system");
   //first lights
@@ -143,7 +143,7 @@ void setup () {
   blinkLights ();
 
   //introduction text
-  sendCommand(PLAY_W_INDEX, FOLDER_ONE, INTRO);
+  sendCommand(PLAY_W_INDEX, FOLDER_ONE, INTRO); //versturen commando naar mp3 --> speel muziek
   delay (17000); //waiting for the text to finish
   //checkButton();
   buttonWait(BUTTON_START); //waiting for the button to be pressed
