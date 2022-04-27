@@ -10,7 +10,6 @@
 #ifndef AUDIOPLAYER_H
 #define AUDIOPLAYER_H
 
-
 #include <MD_YX5300.h>              // MD_YX5300 MP3 Player 
 #include <SoftwareSerial.h>
 
@@ -54,54 +53,96 @@ unsigned char playmode = 1;
 #define DAC_OFF 0X01
 #define PLAY_W_VOL 0X22
 
+enum Folders {
+  questionaire = 0x00,
+  stories = 0x01
+};
+
+enum QuestionaireFiles {
+  INTRO = 0X01,
+  Q1 = 0X02,
+  Q2 = 0X03,
+  Q3 = 0X04,
+  Q4 = 0X05,
+  Q5 = 0X06,
+  Q6 = 0X07,
+  Q7 = 0X08,
+  Q8 = 0X09,
+  Q9 = 0X0A,
+  Q10 = 0X0B,
+  Q11 = 0X0C,
+  Q12 = 0X0D,
+  OUTRO = 0X0E,
+  OUTRO_STORY = 0X0F,
+};
+
+enum StoryFiles {
+  STORY_1 = 0X01,
+  STORY_2 = 0X02,
+  STORY_3 = 0X03,
+  STORY_4 = 0X04,
+  STORY_5 = 0X05
+};
+
+class AudioPlayer {
+  private:
+    static void playOrPause() {
+      cli(); //turn off interrupt
+      if (playmode == PLAY_SOUND)
+      {
+        playmode = PAUSE_SOUND;
+        sendCommand(PAUSE, 0, 0);
+        Serial.println("pause");
+      }
+      else
+      {
+        playmode = PLAY_SOUND;
+        sendCommand(PLAY, 0 , 0 );
+        Serial.println("play");
+      }
+      sei();//turn on interrupt
+    }
+
+    static void sendCommand(int8_t command, byte option1, byte option2) {
+      delay(20);
+      Serial.println("Command");          // As explained in the manual linked above each signal has their own 'code' they can be found in the manual. They do not need to be edited.
+      Send_buf[0] = 0x7e;                 // Every command starts with this, lets call it the 'address'
+      Send_buf[1] = 0xff;                 // Version info
+      Send_buf[2] = 0x06;                 // Number of bytes
+      Send_buf[3] = command;              // The command, as defined earlier (PLAY, PAUSE etc)
+      Send_buf[4] = 0x00;//               // always 00, lets call it a spacer
+      Send_buf[5] = option1 ;             // two bites as an option to e.g. select a specific folder
+      Send_buf[6] = option2;              // two bites as an option to e.g. select a song
+      Send_buf[7] = 0xef; //              // Ending the command
+
+      for (uint8_t i = 0; i < 8; i++)     // this looks through all the send buffs, pastes them after one another and sends them.
+      {
+        mySerial.write(Send_buf[i]);
+      }
+    }
+
+  public:
+    void Initialize() {
+      mySerial.begin(9600);
+      attachInterrupt(Buttons::BUTTON_START, playOrPause, RISING); //pin2 -> INT0, and the Touch Sensor is connected with pin2 of Arduino
+
+      //CONNECT TO THE YX5300 Serial MP3 Player
+      sendCommand(SELECT_DEVICE, 0, DEVICE_TF);           // select device command, empty space, device command
+      delay(200);
+      playOrPause();                                      // void for the playing and pausing (starts on paused)
+
+      Serial.println("Audio setup");
+    }
+
+    void PlayIntro() {
+      sendCommand(PLAY_W_INDEX, Folders::questionaire, INTRO); //versturen commando naar mp3 --> speel muziek
+    }
+
+    void PlayQuestion(uint8_t question) {
+      sendCommand(PLAY_W_INDEX, Folders::questionaire, question);
+    }
+};
 
 
-void sendCommand(int8_t command, byte option1, byte option2) {
-  delay(20);
-  Serial.println("Command");          // As explained in the manual linked above each signal has their own 'code' they can be found in the manual. They do not need to be edited.
-  Send_buf[0] = 0x7e;                 // Every command starts with this, lets call it the 'address'
-  Send_buf[1] = 0xff;                 // Version info
-  Send_buf[2] = 0x06;                 // Number of bytes
-  Send_buf[3] = command;              // The command, as defined earlier (PLAY, PAUSE etc)
-  Send_buf[4] = 0x00;//               // always 00, lets call it a spacer
-  Send_buf[5] = option1 ;             // two bites as an option to e.g. select a specific folder
-  Send_buf[6] = option2;              // two bites as an option to e.g. select a song
-  Send_buf[7] = 0xef; //              // Ending the command
-
-  for (uint8_t i = 0; i < 8; i++)     // this looks through all the send buffs, pastes them after one another and sends them.
-  {
-    mySerial.write(Send_buf[i]);
-  }
-}
-
-
-void playOrPause() {
-  cli(); //turn off interrupt
-  if (playmode == PLAY_SOUND)
-  {
-    playmode = PAUSE_SOUND;
-    sendCommand(PAUSE, 0, 0);
-    Serial.println("pause");
-  }
-  else
-  {
-    playmode = PLAY_SOUND;
-    sendCommand(PLAY, 0 , 0 );
-    Serial.println("play");
-  }
-  sei();//turn on interrupt
-}
-
-void InitializeAudio() {
-  mySerial.begin(9600);
-  attachInterrupt(BUTTON_START, playOrPause, RISING); //pin2 -> INT0, and the Touch Sensor is connected with pin2 of Arduino
-
-  //CONNECT TO THE YX5300 Serial MP3 Player
-  sendCommand(SELECT_DEVICE, 0, DEVICE_TF);           // select device command, empty space, device command
-  delay(200);
-  playOrPause();                                      // void for the playing and pausing (starts on paused)
-
-  Serial.println("Audio setup");
-}
 
 #endif

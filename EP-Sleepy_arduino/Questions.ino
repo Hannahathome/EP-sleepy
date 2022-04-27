@@ -1,19 +1,19 @@
-int playQuestion(uint8_t question) {
-  sendCommand(PLAY_W_INDEX, FOLDER_ONE, question);
+int playQuestion(uint8_t question, Buttons buttons, AudioPlayer player) {
+  player.PlayQuestion(question);
 
   Serial.println("playingQuestion");
   delay (10000);
   Serial.println("Waiting for answer");
 
   while (1) {
-    ButtonAnswer answer = getButtonInput();
+    ButtonAnswer answer = buttons.GetInput();
 
     blinkButtonLights ();
     Serial.println("Waiting for answer");
     
     if (answer == ButtonAnswer::action) {
       Serial.println("replay question");
-      sendCommand(PLAY_W_INDEX, FOLDER_ONE, Q1); //replay the current question
+      player.PlayQuestion(question); //replay the current question
     }
     
     if (answer == ButtonAnswer::one) {
