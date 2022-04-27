@@ -18,6 +18,18 @@
 
 */
 
+#ifndef LEDS_H
+#define LEDS_H
+
+//LIGHTS IN BUTTONS--------------------------------------------------//
+#define NUM_LEDS     6
+
+int delayTime = 500;  // duration to pause
+int latchPin = 15;    // the pin connected to the latch pin, RCLK (pin 12 of the shift register)setting the latch LOW will send the 8 bits in storage to the output pins
+int clockPin = 21;    // the pin connected to the clock pin, SRCLK (pin 11 of the shift register)
+int dataPin = 4;      // the pin connected to the serial data pin, SER (pin 14 of the shift register)
+byte storageByte;
+
 // function which sends the stored byte to the output pins by setting the latch pin LOW
 void updateShiftRegister(byte storageByte) {
   digitalWrite(latchPin, LOW);                          // set the latch pin LOW
@@ -83,3 +95,5 @@ void lightsOff () {
   storageByte = 0b00000000;
   updateShiftRegister(storageByte);
 }
+
+#endif
