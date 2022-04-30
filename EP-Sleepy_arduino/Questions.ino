@@ -1,64 +1,45 @@
-int answerOne = 0;
-int answerTwo = 0;
-int answerThree = 0;
-int answerFour = 0;
-int answerFive = 0;
-int replayQuestion = 0;
-
-int CurrentQuestion = 0;
-
-void playQuestion(uint8_t question) {
-  sendCommand(PLAY_W_INDEX, FOLDER_ONE, question);
+int playQuestion(uint8_t question, Buttons buttons, AudioPlayer player) {
+  player.PlayQuestion(question);
 
   Serial.println("playingQuestion");
   delay (10000);
   Serial.println("Waiting for answer");
 
   while (1) {
-    int answerOne = digitalRead(BUTTON_ONE);
-    int answerTwo = digitalRead(BUTTON_TWO);
-    int answerThree = digitalRead(BUTTON_THREE);
-    int answerFour = digitalRead(BUTTON_FOUR);
-    int answerFive = digitalRead(BUTTON_FIVE);
-    int replayQuestion = digitalRead(BUTTON_START);
+    ButtonAnswer answer = buttons.GetInput();
+
     blinkButtonLights ();
     Serial.println("Waiting for answer");
-
-    if (replayQuestion == HIGH) {
+    
+    if (answer == ButtonAnswer::action) {
       Serial.println("replay question");
-      sendCommand(PLAY_W_INDEX, FOLDER_ONE, Q1); //replay the current question
+      player.PlayQuestion(question); //replay the current question
     }
     
-    if (answerOne == HIGH) {
+    if (answer == ButtonAnswer::one) {
       Serial.println("answer 1");
-      answers[CurrentQuestion] = 1;
-      CurrentQuestion++; //replay the current question
-      return;
+      return 1;
     }
-    if (answerTwo == HIGH) {
+    
+    if (answer == ButtonAnswer::two) {
       Serial.println("answer 2");
-      answers[CurrentQuestion] = 2;
-      CurrentQuestion ++; //replay the current question
-      return;
+      return 2;
     }
-    if (answerThree == HIGH) {
+    
+    if (answer == ButtonAnswer::three) {
       Serial.println("answer 3");
-      answers[CurrentQuestion] = 3;
-      CurrentQuestion++; //replay the current question
-      return;
+      return 3;
     }
-    if (answerFour == HIGH) {
+    
+    if (answer == ButtonAnswer::four) {
       Serial.println("answer 4");
-      answers[CurrentQuestion] = 4;
-      CurrentQuestion++; //replay the current question
-      return;
+      return 4;
     }
-    if (answerFive == HIGH) {
+    
+    if (answer == ButtonAnswer::five) {
       Serial.println("answer 5");
-      answers[CurrentQuestion] = 5;
-      CurrentQuestion++; //replay the current question
-      return;
+      return 5;
     }
   }
-  Serial.println("answered!");
+  return -1;
 }
