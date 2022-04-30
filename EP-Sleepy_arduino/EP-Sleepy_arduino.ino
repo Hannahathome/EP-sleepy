@@ -22,8 +22,6 @@ void setup () {
   Buttons buttons = Buttons();
   buttons.Initialize();
 
-
-
   //LIGHTS IN BUTTONS--------------------------------------------------//
   // initialize all the pins connected to the shift register as outputs
   pinMode(latchPin, OUTPUT);

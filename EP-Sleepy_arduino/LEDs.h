@@ -18,11 +18,9 @@
 
 */
 
-#ifndef LEDS_H
-#define LEDS_H
-
-//LIGHTS IN BUTTONS--------------------------------------------------//
-#define NUM_LEDS     6
+#ifndef LEDS_H        // if not defined, do the following: (aka the rest of the code until endif) 
+#define LEDS_H 
+#define NUM_LEDS 6
 
 int delayTime = 500;  // duration to pause
 int latchPin = 15;    // the pin connected to the latch pin, RCLK (pin 12 of the shift register)setting the latch LOW will send the 8 bits in storage to the output pins
@@ -96,4 +94,4 @@ void lightsOff () {
   updateShiftRegister(storageByte);
 }
 
-#endif
+#endif 

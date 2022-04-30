@@ -7,10 +7,11 @@
 
 */
 
-#ifndef BUTTONS_H
+#ifndef BUTTONS_H // if not defined, do the following: (aka the rest of the code until endif) 
 #define BUTTONS_H
 
-enum ButtonAnswer {
+//enum is a readable value instead of the '1' '2' '3' etc. 
+enum ButtonAnswer { 
   unknown,
   one,
   two,
@@ -30,6 +31,7 @@ class Buttons {
     static const int BUTTON_FOUR = 33;   // GIOP 33 pin connected to button
     static const int BUTTON_FIVE = 32;   // GIOP 32 pin connected to button
 
+    // initialize the pins, again watch if the pins you are using can be used for input!
     void Initialize() {
       pinMode(BUTTON_ONE, INPUT);
       pinMode(BUTTON_TWO, INPUT);
@@ -48,19 +50,19 @@ class Buttons {
         return ButtonAnswer::one;
       }
       if (digitalRead(BUTTON_TWO)) {
-        return ButtonAnswer::one;
+        return ButtonAnswer::two;
       }
       if (digitalRead(BUTTON_THREE)) {
-        return ButtonAnswer::one;
+        return ButtonAnswer::three;
       }
       if (digitalRead(BUTTON_FOUR)) {
-        return ButtonAnswer::one;
+        return ButtonAnswer::four;
       }
       if (digitalRead(BUTTON_FIVE)) {
-        return ButtonAnswer::one;
+        return ButtonAnswer::five;
       }
 
-      return ButtonAnswer::unknown;
+      return ButtonAnswer::unknown;  //catch for if there has no button been pressed.
     }
 
 

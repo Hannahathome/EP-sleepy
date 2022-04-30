@@ -7,7 +7,7 @@
   If you do not need the additional options, add a '0'
 */
 
-#ifndef AUDIOPLAYER_H
+#ifndef AUDIOPLAYER_H               // if not defined, do the following: (aka the rest of the code until endif) 
 #define AUDIOPLAYER_H
 
 #include <MD_YX5300.h>              // MD_YX5300 MP3 Player 
@@ -134,12 +134,17 @@ class AudioPlayer {
       Serial.println("Audio setup");
     }
 
-    void PlayIntro() {
-      sendCommand(PLAY_W_INDEX, Folders::questionaire, INTRO); //versturen commando naar mp3 --> speel muziek
+    void PlayIntro() { 
+      sendCommand(PLAY_W_INDEX, Folders::questionaire, QuestionaireFiles::INTRO); //versturen commando naar mp3 --> speel muziek (:: = a scope resolution operator. It means: "use" so, from QUESTIONAIREFILES use INTRO) 
+    }
+
+    void PlayOutro() {
+      sendCommand(PLAY_W_INDEX, Folders::questionaire, QuestionaireFiles::OUTRO); //versturen commando naar mp3 --> speel muziek
     }
 
     void PlayQuestion(uint8_t question) {
       sendCommand(PLAY_W_INDEX, Folders::questionaire, question);
+
     }
 };
 
