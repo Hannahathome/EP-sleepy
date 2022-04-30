@@ -11,10 +11,12 @@ char questions[] = {Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12};
 int answers[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 void setup () {
-  //AUDIO PLAYER--------------------------------------------------//
   Serial.begin(9600);
+
+  //AUDIO PLAYER--------------------------------------------------//
   AudioPlayer player = AudioPlayer();
   player.Initialize();
+
   Serial.println("START");
   delay(500);
 
@@ -29,6 +31,10 @@ void setup () {
   pinMode(clockPin, OUTPUT);
   Serial.println("Lights setup");
 
+  //OOCSI INIT---------------------------------------------------------//
+  OOCSIInitialization();
+
+
   /***************************************************/
   //THE ACTUAL LIKE PROGRAM THAT RUNS ONCE--------------------------------------------------//
   Serial.println("Starting system");
@@ -38,7 +44,7 @@ void setup () {
 
   //introduction text
   player.PlayIntro();
-  
+
   delay (17000); //waiting for the text to finish
   //checkButton();
   buttons.Wait(Buttons::BUTTON_START); //waiting for the button to be pressed
@@ -50,7 +56,8 @@ void setup () {
   for (int i = 0; i < 12; i++) {
     Serial.println(String(answers[i]));
   }
-
+  player.PlayOutro();
+  SendAnswers();
   walkingLights (); //anything after playig the sound will happen during the playing, beware of this
   Serial.println("end of the program");
 }

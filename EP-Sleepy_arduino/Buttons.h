@@ -70,7 +70,7 @@ class Buttons {
     void Wait(int buttonPin) {
       Serial.println("waiting for button");
       int buttonState = 0;
-      blinkNextButton ();
+      blinkNextButton ();                         
       while (1) {
         blinkNextButton ();
         buttonState = digitalRead(BUTTON_START);
