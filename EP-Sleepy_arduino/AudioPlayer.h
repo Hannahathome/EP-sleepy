@@ -136,7 +136,7 @@ class AudioPlayer {
 
     void PlayIntro() { 
       sendCommand(PLAY_W_INDEX, Folders::questionaire, QuestionaireFiles::INTRO); //versturen commando naar mp3 --> speel muziek (:: = a scope resolution operator. It means: "use" so, from QUESTIONAIREFILES use INTRO) 
-    }
+    } 
 
     void PlayOutro() {
       sendCommand(PLAY_W_INDEX, Folders::questionaire, QuestionaireFiles::OUTRO); //versturen commando naar mp3 --> speel muziek

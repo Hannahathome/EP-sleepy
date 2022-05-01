@@ -14,7 +14,7 @@
 #include <WiFi.h>
 #include <OOCSI.h>
 
- OOCSI CONNECTION --> you need the name an password of your wifi network for this
+//OOCSI CONNECTION --> you need the name an password of your wifi network for this
 const char* ssid = "your network name"; // SSID of your Wifi network, the library currently does not support WPA2 Enterprise networks
 const char* password = "your network password"; // Password of your Wifi network.
 
@@ -45,4 +45,5 @@ void SendAnswers() {
   oocsi.addIntArray("answers", answers, QUESTION_AMOUNT );
   oocsi.sendMessage();
   oocsi.check();
+  //Serial.println (String(oocsi.check())); 
 }

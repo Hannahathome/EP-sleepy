@@ -42,11 +42,11 @@ void setup () {
   blinkLights ();
   blinkLights ();
 
-  //introduction text
+//  //introduction text
   player.PlayIntro();
+  //anything after playig the sound will happen during the playing, beware of this
+  delay (17000); //waiting for the text to finish, this duration is based on the time of the intro 17 seconds 
 
-  delay (17000); //waiting for the text to finish
-  //checkButton();
   buttons.Wait(Buttons::BUTTON_START); //waiting for the button to be pressed
 
   for (int i = 0; i < QUESTION_AMOUNT; i++) {
@@ -57,8 +57,11 @@ void setup () {
     Serial.println(String(answers[i]));
   }
   player.PlayOutro();
+  delay (10000);
   SendAnswers();
-  walkingLights (); //anything after playig the sound will happen during the playing, beware of this
+
+  blinkLights ();
+  blinkLights ();
   Serial.println("end of the program");
 }
 
