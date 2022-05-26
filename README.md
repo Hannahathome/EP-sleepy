@@ -27,4 +27,3 @@ The hardware this code was made for:
 ### Schematics
 ![EPsleepy shiftregister without sd_bb](https://user-images.githubusercontent.com/46523801/168841017-b4ac8ba5-cf0c-44ba-aacb-1b34505a8684.png)
 
-![EPsleepy shiftregister without sd_schem](https://user-images.githubusercontent.com/46523801/168839763-0277d8d7-f5c9-4c8c-b61c-1d5a20ff9e88.png)
