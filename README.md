@@ -1,6 +1,6 @@
 # EP-Sleepy 
 
-EPSleepy is the code made for a prototype for my FMP. Here a summary of the contents of this page. For more information please take a look at the wiki 
+EP-Sleepy is the code made for a prototype for my FMP. Here a summary of the contents of this page. For more information please take a look at the wiki.  
 
 ## Code in the repository
 
