@@ -54,8 +54,8 @@ unsigned char playmode = 1;
 #define PLAY_W_VOL 0X22
 
 enum Folders {
-  questionaire = 0x00,
-  stories = 0x01
+  questionaire = 0x00, //for now i just use the one folder, so all parts are in questionaire 
+  //stories = 0x01
 };
 
 enum QuestionaireFiles {
@@ -77,30 +77,30 @@ enum QuestionaireFiles {
 };
 
 enum StoryFiles {
-  STORY_1 = 0X01,
-  STORY_2 = 0X02,
-  STORY_3 = 0X03,
-  STORY_4 = 0X04,
-  STORY_5 = 0X05
+  STORY_1 = 0X10,
+  STORY_2 = 0X11,
+  STORY_3 = 0X12,
+  STORY_4 = 0X13,
+  STORY_5 = 0X14
 };
 
 class AudioPlayer {
   private:
     static void playOrPause() {
-      cli(); //turn off interrupt
-      if (playmode == PLAY_SOUND)
-      {
-        playmode = PAUSE_SOUND;
-        sendCommand(PAUSE, 0, 0);
-        Serial.println("pause");
-      }
-      else
-      {
-        playmode = PLAY_SOUND;
-        sendCommand(PLAY, 0 , 0 );
-        Serial.println("play");
-      }
-      sei();//turn on interrupt
+//      cli(); //turn off interrupt
+//      if (playmode == PLAY_SOUND)
+//      {
+//        playmode = PAUSE_SOUND;
+//        sendCommand(PAUSE, 0, 0);
+//        Serial.println("pause");
+//      }
+//      else
+//      {
+//        playmode = PLAY_SOUND;
+//        sendCommand(PLAY, 0 , 0 );
+//        Serial.println("play");
+//      }
+//      sei();//turn on interrupt
     }
 
     static void sendCommand(int8_t command, byte option1, byte option2) {
@@ -124,7 +124,7 @@ class AudioPlayer {
   public:
     void Initialize() {
       mySerial.begin(9600);
-      attachInterrupt(Buttons::BUTTON_START, playOrPause, RISING); //pin2 -> INT0, and the Touch Sensor is connected with pin2 of Arduino
+      //attachInterrupt(Buttons::BUTTON_START, playOrPause, RISING); //pin2 -> INT0, and the Touch Sensor is connected with pin2 of Arduino
 
       //CONNECT TO THE YX5300 Serial MP3 Player
       sendCommand(SELECT_DEVICE, 0, DEVICE_TF);           // select device command, empty space, device command
@@ -139,12 +139,15 @@ class AudioPlayer {
     } 
 
     void PlayOutro() {
-      sendCommand(PLAY_W_INDEX, Folders::questionaire, QuestionaireFiles::OUTRO); //versturen commando naar mp3 --> speel muziek
+      sendCommand(PLAY_W_INDEX, Folders::questionaire, QuestionaireFiles::OUTRO_STORY); //versturen commando naar mp3 --> speel muziek
     }
 
     void PlayQuestion(uint8_t question) {
       sendCommand(PLAY_W_INDEX, Folders::questionaire, question);
+    }
 
+    void PlayStory(uint8_t storyPart) {
+      sendCommand(PLAY_W_INDEX, Folders::questionaire, storyPart);
     }
 };
 

@@ -25,6 +25,16 @@ void stateInitialization() {
   Serial.printf("system state before reset: %d \n", dayNumber);
 }
 
+int getCurrentDay() {
+  return dayNumber;
+}
+
+void resetState() {
+  preferences.putInt("systemStateKey", 0);
+  dayNumber = 0;
+  Serial.printf("System reset back to: %d \n", preferences.getInt("systemStateKey", 0));
+}
+
 void updateState() {
   dayNumber++; 
   preferences.putInt("systemStateKey", dayNumber);   // save the new daynumber in flash memory

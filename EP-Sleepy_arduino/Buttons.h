@@ -25,11 +25,11 @@ class Buttons {
   public:
     //define the buttons pins
     static const int BUTTON_START = 34;  // GI(O)P 34 pin connected to button (CAREFUL! INPUT ONLY pin, this pin does not give any OUTPUT, so do not use if for that)
-    static const int BUTTON_ONE = 27;    // GIOP 27 pin connected to button
-    static const int BUTTON_TWO = 26;    // GIOP 26 pin connected to button
+    static const int BUTTON_ONE = 32;    // GIOP 32 pin connected to button
+    static const int BUTTON_TWO = 33;    // GIOP 22 pin connected to button
     static const int BUTTON_THREE = 25;  // GIOP 25 pin connected to button
-    static const int BUTTON_FOUR = 33;   // GIOP 33 pin connected to button
-    static const int BUTTON_FIVE = 32;   // GIOP 32 pin connected to button
+    static const int BUTTON_FOUR = 26;   // GIOP 26 pin connected to button
+    static const int BUTTON_FIVE = 27;   // GIOP 27 pin connected to button
 
     // initialize the pins, again watch if the pins you are using can be used for input!
     void Initialize() {
