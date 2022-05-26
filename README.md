@@ -1,20 +1,20 @@
-EP-Sleepy 
+# EP-Sleepy 
 
-EPSleepy is the code made for a prototype for my FMP. 
+EPSleepy is the code made for a prototype for my FMP. Here a summary of the contents of this page. For more information please take a look at the wiki 
 
-h.files 
-The .h files are the setup files, showing the steps the code takes. Think of it as a rough sketch of the final arduino code. 
-
-
-Code in the repository
-The Testing code 
+## Code in the repository
+### The Testing code 
 There are different arduino programs in this repository. EP-SLeepy is the main code with all the different components. 
 When setting up the system, it is good to test each part seperately. For this purpose, there are a set of Testing codes for the buttons, lights audioplayer and SD drive. Use these to test the parts of the system seperately and get a feel for the different parts of the full code. 
 
-Main code 
+### Main code 
 EP-Sleepy_arduino is the main code, it contains the code to control all the components. 
 
-Hardware 
+### h.files 
+The .h files are the setup files, showing the steps the code takes. Think of it as a rough sketch of the final arduino code. 
+
+
+## Hardware 
 The hardware this code was made for: 
 
 - 1x ESP32 WiFi en Bluetooth Board - CP2102
@@ -24,7 +24,7 @@ The hardware this code was made for:
 - 6x 120 ohm resistor (LED) 
 - 6x 10k ohm resistor (buttons pulldown)
 
-Schematics: 
+### Schematics
 ![EPsleepy shiftregister without sd_bb](https://user-images.githubusercontent.com/46523801/168841017-b4ac8ba5-cf0c-44ba-aacb-1b34505a8684.png)
 
 ![EPsleepy shiftregister without sd_schem](https://user-images.githubusercontent.com/46523801/168839763-0277d8d7-f5c9-4c8c-b61c-1d5a20ff9e88.png)
