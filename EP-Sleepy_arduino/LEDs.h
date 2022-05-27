@@ -64,6 +64,15 @@ void blinkLights () {
   delay(delayTime);                           // wait
 }
 
+int ledStartTime = 0;
+
+void blinkButtonLightsAsync () {
+  if (millis() - ledStartTime > delayTime) { // If enough time has passed
+    storageByte = storageByte ^ 0b01111110;  // Invert byte
+    updateShiftRegister(storageByte);        // Send command
+    ledStartTime = millis();                 // Set timer to current time
+  }
+}
 
 void blinkButtonLights () {
   storageByte = 0b01111110;                   // command to turn on all lights except the first (white LED, QH)
