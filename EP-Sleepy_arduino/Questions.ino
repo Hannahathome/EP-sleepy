@@ -1,45 +1,28 @@
 int playQuestion(uint8_t question, Buttons buttons, AudioPlayer player) {
-  player.PlayQuestion(question);
-
-  Serial.println("playingQuestion");
-  delay (10000);
-  Serial.println("Waiting for answer");
-
+  bool firstPlay = true;
+  
   while (1) {
-    ButtonAnswer answer = buttons.GetInput();
-
-    blinkButtonLights ();
+    // Blink the buttons and wait for user input
     Serial.println("Waiting for answer");
+    blinkButtonLightsAsync ();
+    ButtonAnswer buttonAnswer = buttons.GetInput();
     
-    if (answer == ButtonAnswer::action) {
-      Serial.println("replay question");
-      player.PlayQuestion(question); //replay the current question
+    // On first play or on the action button, play question    
+    if (buttonAnswer == ButtonAnswer::action || firstPlay) {
+      firstPlay = false;
+      lightsOff();
+      
+      Serial.println("playing question");
+      player.PlayQuestion(question);
+      delay (10000);
     }
-    
-    if (answer == ButtonAnswer::one) {
-      Serial.println("answer 1");
-      return 1;
-    }
-    
-    if (answer == ButtonAnswer::two) {
-      Serial.println("answer 2");
-      return 2;
-    }
-    
-    if (answer == ButtonAnswer::three) {
-      Serial.println("answer 3");
-      return 3;
-    }
-    
-    if (answer == ButtonAnswer::four) {
-      Serial.println("answer 4");
-      return 4;
-    }
-    
-    if (answer == ButtonAnswer::five) {
-      Serial.println("answer 5");
-      return 5;
+
+    // If a button was pressed, print this and return answer
+    else if (buttonAnswer != ButtonAnswer::unknown) {
+      lightsOff();
+      Serial.print("answer ");
+      Serial.println(static_cast<int>(buttonAnswer));
+      return static_cast<int>(buttonAnswer);
     }
   }
-  return -1;
 }
