@@ -13,11 +13,11 @@
 //enum is a readable value instead of the '1' '2' '3' etc. 
 enum ButtonAnswer { 
   unknown,
-  one,
-  two,
-  three,
-  four,
-  five,
+  one = 1,
+  two = 2,
+  three = 3,
+  four = 4,
+  five = 5,
   action
 };
 
