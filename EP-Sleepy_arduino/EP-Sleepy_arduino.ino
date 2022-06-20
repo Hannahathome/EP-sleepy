@@ -19,9 +19,6 @@ void setup () {
     resetState();
   }
 
-  blinkLights ();
-  blinkLights ();
-  blinkLights ();
   Serial.println("STARTING SYSTEM");
 
   //lightsOn ();
@@ -37,7 +34,7 @@ void setup () {
   pinMode(clockPin, OUTPUT);
   Serial.println("Lights setup");
 
-  OOCSIInitialization();
+  //OOCSIInitialization();
 
   /***************************************************/
 
@@ -45,8 +42,13 @@ void setup () {
   //THE ACTUAL LIKE PROGRAM THAT RUNS ONCE--------------------------------------------------//
   Serial.println("Starting system");
 
-  blinkLights ();       // I use this as indication the system is starting.
+  //blinkLights ();       // I use this as indication the system is starting.
   blinkLights ();
+  //walkingLights (); 
+  lightsOff ();
+
+  //LED (); 
+
 
   player.PlayIntro();   // Anything after playig the sound will happen during the playing, beware of this
   delay (17000);        // Waiting for the text to finish, this duration is based on the time of the intro 17 seconds
@@ -63,7 +65,7 @@ void setup () {
     Serial.println(String(answers[i]));
   }
 
-  SendAnswers();         // see OOCSI tab for details
+  //SendAnswers();         // see OOCSI tab for details
 
   player.PlayOutro();    // Anything after playig the sound will happen during the playing, beware of this
   delay (10000);         // Waiting for the text to finish, this duration is based on the time of the outro

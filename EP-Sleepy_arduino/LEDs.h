@@ -19,8 +19,8 @@
 */
 
 #ifndef LEDS_H        // if not defined, do the following: (aka the rest of the code until endif) 
-#define LEDS_H 
-#define NUM_LEDS 6
+#define LEDS_H
+#define NUM_LEDS 8
 
 int delayTime = 500;  // duration to pause
 int latchPin = 15;    // the pin connected to the latch pin, RCLK (pin 12 of the shift register)setting the latch LOW will send the 8 bits in storage to the output pins
@@ -38,7 +38,8 @@ void updateShiftRegister(byte storageByte) {
 
 void walkingLights () {
   byte storageByte = 0x01;                    // the byte (8 bits) to be stored in the shift register, initialize to 00000001, representing the first LED on
-
+  //byte storageByte = 0x01000000;                    // the byte (8 bits) to be stored in the shift register, initialize to 00000001, representing the first LED on
+ 
   for (int i = 0; i < NUM_LEDS - 1; i++)  {   // create the effect of having the light travel to the left
     updateShiftRegister(storageByte);         // send the 8 bits to the shift register and set latch LOW
     storageByte = storageByte << 1;           // bitwise shift to the left by 1 bit the MSB will disappear and a 0 will be shifted in for the LSB
@@ -56,10 +57,10 @@ void walkingLights () {
 }
 
 void blinkLights () {
-  storageByte = 0b11111111;                   // command to turn on all lights
+  storageByte = 0b00000000;                   // command to turn on all lights
   updateShiftRegister(storageByte);           // send the 8 bit command to the shift register and set latch LOW
   delay(delayTime);                           // wait
-  storageByte = 0b00000000;                   // command to turn off all lights
+  storageByte = 0b11111111;                   // command to turn on all lights
   updateShiftRegister(storageByte);           // send the 8 bit command to the shift register and set latch LOW
   delay(delayTime);                           // wait
 }
@@ -92,6 +93,23 @@ void blinkNextButton () {
   delay(delayTime);                           // wait
 }
 
+//void blinkTopButtonV2 () {
+//  storageByte = 0b01000000;                   // command to turn on all lights except the first (white LED, QH)
+//  updateShiftRegister(storageByte);           // send the 8 bit command to the shift register and set latch LOW
+//  delay(delayTime);                           // wait
+//  storageByte = 0b00000000;                   // command to turn off all lights
+//  updateShiftRegister(storageByte);           // send the 8 bit command to the shift register and set latch LOW
+//  delay(delayTime);                           // wait
+//}
+
+
+void LED () {
+  storageByte = 0b0000001;
+  updateShiftRegister(storageByte);
+   Serial.println("ledje");
+  delay(10000);
+}
+
 
 void lightsOn () {
   storageByte = 0b11111111;
@@ -103,4 +121,5 @@ void lightsOff () {
   updateShiftRegister(storageByte);
 }
 
-#endif 
+
+#endif

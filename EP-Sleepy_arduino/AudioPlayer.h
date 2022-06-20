@@ -84,6 +84,8 @@ enum StoryFiles {
   STORY_5 = 0X14
 };
 
+
+int8_t vol = 0x1E; 
 class AudioPlayer {
   private:
     static void playOrPause() {
@@ -133,7 +135,11 @@ class AudioPlayer {
 
       Serial.println("Audio setup");
     }
-
+    
+//    void SetVolume(){
+//       sendCommand(SET_VOLUME, vol);
+//      };
+//      
     void PlayIntro() { 
       sendCommand(PLAY_W_INDEX, Folders::questionaire, QuestionaireFiles::INTRO); //versturen commando naar mp3 --> speel muziek (:: = a scope resolution operator. It means: "use" so, from QUESTIONAIREFILES use INTRO) 
     } 
